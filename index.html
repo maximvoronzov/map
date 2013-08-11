@@ -100,10 +100,10 @@ var map = L.mapbox.map('map','maximvoronzov.map-v3mu4cz0', { zoomControl: true }
     //  var popinput = $('#popform').val();
      // marker.bindPopup(popinput);
 	 $(document).ready(function() {
-					var text = $('#popform').val();						  
-					 marker.bindPopup(text);
-					 marker.addTo(map);
-		
+					var text = $('#popform').val();		
+          if (text!=0)  {           
+           marker.bindPopup(text);
+           marker.addTo(map);}				  
 		 });
     
   });
