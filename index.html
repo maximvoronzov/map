@@ -16,10 +16,14 @@
 
 <div id='map'></div>
 <script>
-var map = L.mapbox.map('map', 'maximvoronzov.map-v3mu4cz0', { zoomControl: false })
+var map = L.mapbox.map('map','maximvoronzov.map-v3mu4cz0', { zoomControl: true })
     .setView([53.9, 27.57], 12);
-
-new L.Control.Zoom({ position: 'topleft' }).addTo(map);
+var marker = L.marker(new L.LatLng(53.9,27.57), {
+                icon: L.mapbox.marker.icon({'marker-color': 'CC0033'}),
+                draggable: true
+            });
+/*marker.bindPopup('');*/
+marker.addTo(map);
 </script>
 </body>
 </html>
