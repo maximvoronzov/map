@@ -9,7 +9,7 @@
   <![endif]-->
   <style>
     body { margin:0; padding:0; }
-    #map { position:absolute; top:0; bottom:0; width:100%; }
+    #map {position: absolute; top:0; bottom:0; width:100%; }
   </style>
 </head>
 <body>
@@ -18,12 +18,21 @@
 <script>
 var map = L.mapbox.map('map','maximvoronzov.map-v3mu4cz0', { zoomControl: true })
     .setView([53.9, 27.57], 12);
-var marker = L.marker(new L.LatLng(53.9,27.57), {
+
+ map.on('click', function(e) {
+    var lat = (e.latlng.lat);
+    var lng = (e.latlng.lng);
+    var newLatLng = new L.LatLng(lat, lng);
+      var marker = L.marker(new L.LatLng(0,0), {
                 icon: L.mapbox.marker.icon({'marker-color': 'CC0033'}),
                 draggable: true
             });
-/*marker.bindPopup('');*/
-marker.addTo(map);
+      marker.setLatLng(newLatLng);
+      marker.bindPopup('This marker is draggable! Move it around.');
+      marker.addTo(map);
+    });
 </script>
+<!--<input type="button" name="add" value="Add marker" id="add">
+<input type="button" name="delete" value="Delete marker" id="delete">-->
 </body>
 </html>
