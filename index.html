@@ -4,12 +4,16 @@
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
   <script src='http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.js'></script>
   <link href='http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.css' rel='stylesheet' />
+  <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
   <!--[if lte IE 8]>
     <link href='http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.ie.css' rel='stylesheet' >
   <![endif]-->
   <style>
+
     body { margin:0; padding:0; }
     #map {position: absolute; top:0; bottom:0; width:100%; }
+/*
     #map-ui {
         position: absolute;
         top: 10px;
@@ -50,11 +54,28 @@
     #map-ui li:first-child a {
         -webkit-border-radius: 3px 3px 0 0;
         border-radius: 3px 3px 0 0;
+    } */
+    #bottomform{
+        position:absolute;
+        bottom: 10px;
+        left:10px;
+        height: 50px;
+        width: 200px;
+    }
+    h3{
+      margin: 0;
     }
   </style>
+ 
 </head>
 <body>
   <div id='map'></div>
+  <div id="bottomform">
+    <h3>Name of next pin</h3>
+<form action="#" >
+   <input type="text" id="popform" name="popform" >
+</form>
+</div>
 <!--<div id='map-ui'>
     <ul>
         <li><a href='#' id='deldrag'>Delete pins</a></li>
@@ -73,8 +94,18 @@ var map = L.mapbox.map('map','maximvoronzov.map-v3mu4cz0', { zoomControl: true }
                 draggable: true
             });
       marker.setLatLng(newLatLng);
-      marker.bindPopup('<textarea placeholder="Enter text here."></textarea>');
-      marker.addTo(map);
+/*      $("#popform input[type=text]").on("input", function() {    
+    popinput = $(this).val();
+});*/
+    //  var popinput = $('#popform').val();
+     // marker.bindPopup(popinput);
+	 $(document).ready(function() {
+					var text = $('#popform').val();						  
+					 marker.bindPopup(text);
+					 marker.addTo(map);
+		
+		 });
+    
   });
 
  var del = document.getElementById('deldrag');
