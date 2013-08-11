@@ -54,36 +54,39 @@
   </style>
 </head>
 <body>
-<div id='map-ui'>
+  <div id='map'></div>
+<!--<div id='map-ui'>
     <ul>
         <li><a href='#' id='deldrag'>Delete pins</a></li>
     </ul>
-</div>
-<div id='map'></div>
+</div>-->
 <script>
 var map = L.mapbox.map('map','maximvoronzov.map-v3mu4cz0', { zoomControl: true })
     .setView([53.9, 27.57], 12);
-
- var del = document.getElementById('deldrag');
 
  map.on('click', function(e) {
     var lat = (e.latlng.lat);
     var lng = (e.latlng.lng);
     var newLatLng = new L.LatLng(lat, lng);
       var marker = L.marker(new L.LatLng(0,0), {
-                icon: L.mapbox.marker.icon({'marker-color': 'CC0033'}),
+                icon: L.mapbox.marker.icon({'marker-color': '#71bc4e'}),
                 draggable: true
             });
       marker.setLatLng(newLatLng);
-      marker.bindPopup('This marker is draggable! Move it around.');
+      marker.bindPopup('<textarea placeholder="Enter text here."></textarea>');
       marker.addTo(map);
-    });
+  });
 
- del.onclick = function(e) {
-  map.markerLayer.eachLayer(  
-    function(l) { map.markerLayer.removeLayer(l); }
-);
-    };
+ var del = document.getElementById('deldrag');
+
+  del.onclick = function(e) {
+    map.markerLayer.eachLayer(  
+      function(l) { map.markerLayer.removeLayer(l); }
+    );
+  };
+
 </script>
+
+  <script src="js/libs/jquery-1.9.1.js"></script>
 </body>
 </html>
