@@ -5,7 +5,7 @@
   <script src='http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.js'></script>
   <link href='http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.css' rel='stylesheet' />
   <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+  <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
   <!--[if lte IE 8]>
     <link href='http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.ie.css' rel='stylesheet' >
   <![endif]-->
@@ -13,79 +13,55 @@
 
     body { margin:0; padding:0; }
     #map {position: absolute; top:0; bottom:0; width:100%; }
-/*
-    #map-ui {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        z-index: 100;
-    }
-
-    #map-ui ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-    }
-
-    #map-ui a {
-        font-size: 13px;
-        background: #FFF;
-        color: #3C4E5A;
-        display: block;
-        margin: 0;
-        padding: 0;
-        border: 1px solid #BBB;
-        border-bottom-width: 0;
-        min-width: 138px;
-        padding: 10px;
-        text-decoration: none;
-    }
-
-    #map-ui a:hover {
-        background: #ECF5FA;
-    }
-
-    #map-ui li:last-child a {
-        border-bottom-width: 1px;
-        -webkit-border-radius: 0 0 3px 3px;
-        border-radius: 0 0 3px 3px;
-    }
-
-    #map-ui li:first-child a {
-        -webkit-border-radius: 3px 3px 0 0;
-        border-radius: 3px 3px 0 0;
-    } */
     #bottomform{
         position:absolute;
         bottom: 10px;
-        left:10px;
-        height: 50px;
-        width: 200px;
+        left:15px;
+        height: 75px;
+        width: 215px;
+        background-color: #fff ;
+        opacity: 0.6;
     }
     h3{
       margin: 0;
+      font-family: Helvetica;
+      text-align: center;
+    }
+    .hide{
+      position: relative;
+      top:0;
+      right: 0;
+      display: inline;
+      margin-left: 170px;
+    }
+    #popform{
+      margin-left: 20px;
+      margin-right: 20px;
     }
   </style>
  
 </head>
 <body>
-  <div id='map'></div>
-  <div id="bottomform">
-    <h3>Name of next pin</h3>
-<form action="#" >
+<div id='map'></div>
+<div id="bottomform"><button onclick="bottomform(1)" class="hide">Hide</button>
+    <h3>Name of the pin</h3>
    <input type="text" id="popform" name="popform" >
-</form>
 </div>
-<!--<div id='map-ui'>
-    <ul>
-        <li><a href='#' id='deldrag'>Delete pins</a></li>
-    </ul>
-</div>-->
+
 <script>
+bottomform(1);
 var map = L.mapbox.map('map','maximvoronzov.map-v3mu4cz0', { zoomControl: true })
     .setView([53.9, 27.57], 12);
 
+function bottomform(a)
+{
+    if(a==1)
+    document.getElementById("bottomform").style.display="none";
+    else
+    document.getElementById("bottomform").style.display="block";
+}
  map.on('click', function(e) {
+    bottomform(0);
     var lat = (e.latlng.lat);
     var lng = (e.latlng.lng);
     var newLatLng = new L.LatLng(lat, lng);
@@ -93,31 +69,20 @@ var map = L.mapbox.map('map','maximvoronzov.map-v3mu4cz0', { zoomControl: true }
                 icon: L.mapbox.marker.icon({'marker-color': '#71bc4e'}),
                 draggable: true
             });
-      marker.setLatLng(newLatLng);
-/*      $("#popform input[type=text]").on("input", function() {    
-    popinput = $(this).val();
-});*/
-    //  var popinput = $('#popform').val();
-     // marker.bindPopup(popinput);
+      marker.setLatLng(newLatLng);         
 	 $(document).ready(function() {
 					var text = $('#popform').val();		
-          if (text!=0)  {           
+          if (text!=0) {           
            marker.bindPopup(text);
-           marker.addTo(map);}				  
+           marker.addTo(map);	
+           bottomform(1);
+           $('#popform').val('');
+          }			  
 		 });
     
   });
 
- var del = document.getElementById('deldrag');
-
-  del.onclick = function(e) {
-    map.markerLayer.eachLayer(  
-      function(l) { map.markerLayer.removeLayer(l); }
-    );
-  };
-
 </script>
 
-  <script src="js/libs/jquery-1.9.1.js"></script>
 </body>
 </html>
