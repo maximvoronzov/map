@@ -56,9 +56,9 @@ var map = L.mapbox.map('map','maximvoronzov.map-v3mu4cz0', { zoomControl: true }
 function bottomform(a)
 {
     if(a==1)
-    document.getElementById("bottomform").style.display="none";
+    $('#bottomform').hide("slow");
     else
-    document.getElementById("bottomform").style.display="block";
+    $('#bottomform').show("slow");
 }
  map.on('click', function(e) {
     bottomform(0);
@@ -67,7 +67,7 @@ function bottomform(a)
     var newLatLng = new L.LatLng(lat, lng);
       var marker = L.marker(new L.LatLng(0,0), {
                 icon: L.mapbox.marker.icon({'marker-color': '#71bc4e'}),
-                draggable: true
+                draggable:true
             });
       marker.setLatLng(newLatLng);         
 	 $(document).ready(function() {
