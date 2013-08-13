@@ -1,3 +1,46 @@
 /* Put your CSS here */
-
-
+	#map {position: absolute; top:0; bottom:0; width:100%;right: 0; }
+    #bottomform{
+        position:absolute;
+        bottom: 10px;
+        left:15px;
+        height:95px;
+        width: 220px;
+        background-color: #fff ;
+        opacity: 0.6;
+    }
+    h3{
+      margin: 0;
+      font-family: Helvetica;
+      text-align: center;
+    }
+    p{
+      margin: 0;
+      font-family: Helvetica;
+      text-align: center;
+      font-size: 12px;
+    }
+    .show{
+      position: absolute;
+      bottom: 10px;
+      left:10px;
+      opacity: 0.8;
+      border-radius: 3px;
+      background-color: #fff;
+      width:100px;
+      height: 50px;
+    }
+    .hide{
+      position: relative;
+      top:0;
+      right: 0;
+      display: inline;
+      margin-left: 170px;
+    }
+    #popform{
+      margin-left: 13px;
+      margin-right: 13px;
+    }
+    .nigga{
+    	position: absolute;
+    }

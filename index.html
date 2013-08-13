@@ -1,67 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+<meta charset="utf-8">
+<title>Ember Starter Kit</title>
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/style.css">
   <script src='http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.js'></script>
   <link href='http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.css' rel='stylesheet' />
-  <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-  <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-  <!--[if lte IE 8]>
-    <link href='http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.ie.css' rel='stylesheet' >
-  <![endif]-->
-  <style>
-
-    body { margin:0; padding:0; }
-    #map {position: absolute; top:0; bottom:0; width:100%; }
-    #bottomform{
-        position:absolute;
-        bottom: 10px;
-        left:15px;
-        height: 75px;
-        width: 215px;
-        background-color: #fff ;
-        opacity: 0.6;
-    }
-    h3{
-      margin: 0;
-      font-family: Helvetica;
-      text-align: center;
-    }
-    .hide{
-      position: relative;
-      top:0;
-      right: 0;
-      display: inline;
-      margin-left: 170px;
-    }
-    #popform{
-      margin-left: 20px;
-      margin-right: 20px;
-    }
-  </style>
- 
 </head>
 <body>
-<div id='map'></div>
-<div id="bottomform"><button onclick="bottomform(1)" class="hide">Hide</button>
-    <h3>Name of the pin</h3>
-   <input type="text" id="popform" name="popform" >
-</div>
 
-<script>
-bottomform(1);
-var map = L.mapbox.map('map','maximvoronzov.map-v3mu4cz0', { zoomControl: true })
+  <div id='map'></div>
+
+  <script>
+    var map = L.mapbox.map('map','maximvoronzov.map-v3mu4cz0', { zoomControl: true })
     .setView([53.9, 27.57], 12);
+  </script>
 
-function bottomform(a)
-{
-    if(a==1)
-    $('#bottomform').hide("slow");
-    else
-    $('#bottomform').show("slow");
-}
- map.on('click', function(e) {
-    bottomform(0);
+  <script type="text/x-handlebars">
+    {{outlet}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="index">
+  {{#if inputVisible}}
+    <div id="bottomform"><button  {{ action 'hideInput'}} class="hide">Hide</button>
+      <h3>Name your pin</h3>
+      <p>and click on the map</p>
+      <input type="text" id="popform" name="popform" >
+    </div>
+    {{else}}
+    <button  {{ action 'showInput'}} class="show">Create pin</button>
+  {{/if}}
+  </script>
+
+  <script>
+  map.on('click', function(e) {
     var lat = (e.latlng.lat);
     var lng = (e.latlng.lng);
     var newLatLng = new L.LatLng(lat, lng);
@@ -70,19 +43,20 @@ function bottomform(a)
                 draggable:true
             });
       marker.setLatLng(newLatLng);         
-	 $(document).ready(function() {
-					var text = $('#popform').val();		
-          if (text!=0) {           
+   $(document).ready(function() {
+          var text = $('#popform').val();   
+          if (text!=null&&text!=0) {           
            marker.bindPopup(text);
-           marker.addTo(map);	
-           bottomform(1);
+           marker.addTo(map); 
            $('#popform').val('');
-          }			  
-		 });
-    
+          }       
+     });  
   });
-
-</script>
+  </script>
+  <script src="js/libs/jquery-1.9.1.js"></script>
+  <script src="js/libs/handlebars-1.0.0-rc.4.js"></script>
+  <script src="js/libs/ember-1.0.0-rc.6.1.js"></script>
+  <script src="js/app.js"></script>
 
 </body>
 </html>
